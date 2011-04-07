@@ -1,0 +1,189 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>Make it work in IE8</title>
+
+    <link href="stylesheets/reset-fonts-grids.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/application-story-wall.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="stylesheets/ab-theme/init.css" media="screen" rel="stylesheet" type="text/css" />
+
+    <script src="javascripts/ext-base-debug.js" type="text/javascript"></script>
+    <script src="javascripts/ext-all-debug.js" type="text/javascript"></script>
+    <script src="javascripts/DuplicateProxy.js" type="text/javascript"></script>
+    <script src="javascripts/WorkflowEditor.js" type="text/javascript"></script>
+
+    <script type="text/javascript">
+Ext.onReady(function() {
+  console.log("creating new workflow editor");
+
+  var editor = new Ext.agilebench.WorkflowEditor({
+    url: '/workflow.json',
+    applyTo: 'content'
+  });
+
+  var stateEditor = editor.workflowstateeditor;
+
+  var dragSource = new Ext.dd.DragZone(stateEditor.getEl(), {
+    dragCls : 'x-dragging',
+    viewDragCls : 'x-view-sortable-dragging',
+
+    proxy: new Ext.agilebench.DuplicateProxy({shadow: false, animRepair: true}),
+
+/*
+    alignElWithMouse: function(el, iPageX, iPageY) {
+      var sourceBox = Ext.fly(this.dragData.ddel).getBox();
+      var oCoord = this.getTargetCoord(iPageX, iPageY);
+
+      // center the mouse to the dragging element
+//      oCoord = { x: iPageX - Math.round(sourceBox.width / 2),
+//                 y: iPageY - Math.round(sourceBox.height / 2) };
+      oCoord.y = iPageY - Math.round(sourceBox.height / 2) - 20;
+
+      var fly = el.dom ? el : Ext.fly(el, '_dd');
+      if (!this.deltaSetXY) {
+        var aCoord = [oCoord.x, oCoord.y];
+        fly.setXY(aCoord);
+        var newLeft = fly.getLeft(true);
+        var newTop  = fly.getTop(true);
+        this.deltaSetXY = [ newLeft - oCoord.x, newTop - oCoord.y ];
+      } else {
+        fly.setLeftTop(oCoord.x + this.deltaSetXY[0], oCoord.y + this.deltaSetXY[1]);
+      }
+
+      this.cachePosition(oCoord.x, oCoord.y);
+      this.autoScroll(oCoord.x, oCoord.y, el.offsetHeight, el.offsetWidth);
+      return oCoord;
+    },
+*/
+
+    getDragData : function(e) {
+      console.log("getDragData");
+      var container = e.getTarget(stateEditor.itemSelector, 5, true);
+      if(container == null) {
+        return false;  // nothing to drag
+      }
+
+      var index = stateEditor.indexOf(container);
+
+      // the first and last items cannot be dragged
+      if(index < 1 || index > stateEditor.store.data.length - 1) {
+//        debugger
+        console.log("dragSource::getDragData - false.  index: " + index);
+        return false;
+      }
+
+      //debugger
+      return {
+        ddel : container.dom,
+        record: stateEditor.getRecord(container.dom),
+        origIndex: index
+      }
+    },
+
+    onStartDrag: function(x, y) {
+      console.log("onStartDrag");
+      Ext.fly(stateEditor.getNode(this.dragData.origIndex)).addClass(this.dragCls);
+    },
+
+    endDrag: function(e) {
+      console.log("end drag");
+      var nodes = stateEditor.getNodes();
+
+      // don't just update origIndex, need to update all.
+      for(var i = 0; i < nodes.length; i++) {
+        Ext.fly(nodes[i]).removeClass(this.dragCls);
+      }
+    }
+  });
+
+  var dragTarget = new Ext.dd.DropTarget(stateEditor.getEl().dom, {
+    lastIndex: null,
+
+    notifyOver : function(dd, e, data){
+      var container = e.getTarget(stateEditor.itemSelector, 5, true);
+
+      // are we over a data view node?
+      if(container == null) {
+        // console.log("dragTarget::notifyOver1 - false");
+        return false;
+      }
+
+      var index = stateEditor.indexOf(container);
+
+      // are we over ourself?
+      if(this.lastIndex == index) {
+        // console.log("dragTarget::notifyOver2 - false");
+        return false;
+      }
+
+      this.lastIndex = index;
+
+      if(stateEditor.fireEvent('validatedrop', {index: index, record: data.record }) !== false) {
+        // treat the updating of the datastore as atomic
+        stateEditor.store.suspendEvents(false);
+        stateEditor.store.remove(data.record);
+        stateEditor.store.insert(index, data.record);
+        var position = 1;
+        stateEditor.store.each(function(record) {
+          record.set("workflow_state_order", position++);
+          return true;
+        });
+        stateEditor.store.resumeEvents();
+
+        // force the datastore to redraw.  suspended events stopped intermediate visual updates.
+        stateEditor.refresh();
+        Ext.fly(stateEditor.getNode(index)).addClass(dragSource.dragCls);
+//        debugger
+        var xy = e.getXY();
+        px = dd.proxy;
+
+        console.log("over : " + index);
+
+        var node = Ext.get(stateEditor.getNode(index));
+  //      console.log(node);
+        var height = node.getHeight();
+  //      console.log("height" + height);
+
+        var match = false, pos = 0;
+  //      console.log("node.getY() : " + node.getY());
+
+        if((node.getY() + (height / 2)) > xy[1]) {
+//          console.log("matching");
+          match = true;
+        }
+      }
+
+      // fire the beforedragover event (see portal.js)
+//      px.moveProxy(node.dom.parentNode, node.dom);
+
+      return true;
+    },
+
+    notifyDrop : function(source, e, data){
+      console.log("notify drop");
+      var container = e.getTarget(stateEditor.itemSelector, 5, true);
+      if(!container) {
+        // repair
+        return false;
+      }
+      var index = stateEditor.indexOf(container);
+      Ext.fly(container.removeClass(dragSource.dragCls));
+      console.log("dropped : " + index);
+      stateEditor.fireEvent('drop', {index: index, record: data.record });
+    },
+
+    notifyOut : function(){
+      console.log('out');
+    }
+  });
+});
+</script>
+
+  </head>
+  <body class="app">
+    hello world
+    <div id="content"></div>
+  </body>
+</html>

@@ -1,0 +1,238 @@
+#center-maincontent #summary { text-align: center; margin: 20px 50px 20px 0; width: 100%; }
+
+/* readjust the header */
+#center-maincontent.story-wall-view .yui-g { width: auto; min-width: auto; }
+
+/* align the buttons */
+#center-maincontent #iteration_view { float: right; }
+#center-maincontent .story-wall-heading { float: left; width: 31%; padding: 0 1%; border-right: 1px solid #ccc; }
+#center-maincontent .story-wall-heading.last { border-right: none; }
+
+#center-maincontent .data { display: inline; }
+
+#center-maincontent .velocity-progress {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* Portal Column */
+#center-maincontent .x-portal-column { border-right: 2px solid #cccccc; }
+
+.x-portal-column .stories { margin-top: 10px; }
+
+#center-maincontent .x-portal-column.last {  border-right: none; }
+
+#center-maincontent .x-portal-column .header {
+    border-bottom: 1px solid #333;
+    line-height: 20px;
+    text-shadow: 1px 1px 1px #eee;
+}
+
+#center-maincontent .x-portal-column .title {
+    text-align: left;
+    font-size: 200%;  /* 24pt */
+    margin-left: 10px;
+    margin-top: 10px;
+    line-height: 30px;
+    color: #666;
+    text-shadow: 1px 1px 1px #EEEEEE;
+}
+
+body.ext-gecko #center-maincontent .x-portal-column .title {
+    font-weight: lighter;
+}
+
+#center-maincontent .x-portal-column .point-heading {
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    font-size: 155%; /* 18pt */
+    color: #888;
+    text-shadow: 1px 1px 1px #EEEEEE;
+}
+
+body.ext-gecko #center-maincontent .x-portal-column .point-heading {
+    font-weight: lighter;
+}
+
+#center-maincontent .x-portal-column .points, #center-maincontent .time {
+    display: inline;
+    line-height: 20px;
+}
+
+#center-maincontent .x-portal-column .units {
+    display: inline;
+    // padding-left: 0.5em;
+}
+
+/*  Card Layout */
+
+/*  Playing with multiple cards per column
+#center-maincontent .items { clear: both; float: right; }
+#center-maincontent .x-card { max-width: 200px; float: left; }
+#center-maincontent .card { max-width: 175px;  }
+*/
+
+.app .card .handle { background:url(images/drag-grippy-2.png) repeat-y; width: 10px; }
+
+/* .app .item { width: 240px; } */
+.app .card {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 0 5px 5px 5px;
+    background-color: white;
+
+    -moz-border-radius: 10px; -webkit-border-radius: 10px; border-radius: 10px;
+/*    -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3); -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3); */
+    text-shadow: 1px 1px 1px #EEEEEE;
+}
+
+.app .card:hover {
+    -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#000000');
+}
+
+.card .estimate, .app .card .story_type { float: right; width: 20px; height: 20px; line-height: 20px; text-align: center; margin-bottom: 10px; margin-left: 10px; }
+.card .estimate { border: 1px solid #ccc; }
+.card .story_type { padding-top: 2px; }
+
+.card .bug .estimate { border-color: #c99; }
+.card .chore .estimate { border-color: #cc9; }
+
+.card .story_label { float: left; padding: 10px 0 0 10px; font-size: 116%; }
+.card .story_title { float: none; text-align: left; line-height: 20px; padding-left: 10px; }
+
+.card .item.story .card { background-color: #fff; }
+.card .item.chore .card { background-color: #ffd; }
+.card .item.bug .card { background-color: #fdd; }
+.card .handle { float: left; }
+.card .card-body { margin-left: 20px; }
+.card .card-body-container { width: 100%; float: left; }
+
+
+.card .comment-count { float: right; width: 20px; padding-left: 10px; }
+
+.app .dragover { background-color: #dfe8f6; border-color: 98c0f4; }
+
+.app-add-story .yuimenuitem, .app-edit-story .yuimenuitem { margin: 0; }
+
+/* Super Select Box */
+#center-maincontent-add-story #superselectboxtrial, #center-maincontent-edit-story #superselectboxtrial { border: none; height: 1em; }
+#center-maincontent-add-story .x-superboxselect li span, #center-maincontent-edit-story .x-superboxselect li span {position: relative; top: 4px; }
+#center-maincontent-add-story .x-form-field-wrap, #center-maincontent-edit-story .x-form-field-wrap { width: 440px; }
+#center-maincontent-add-story .x-superboxselect li, #center-maincontent-edit-story .x-superboxselect li { margin: 0 5px 5px 0; }
+#center-maincontent-add-story .x-superboxselect-item, #center-maincontent-edit-story .x-superboxselect-item { margin-bottom: 0; }
+#center-maincontent-add-story img.gravatar, #center-maincontent-edit-story img.gravatar { width: 20px; height: 20px; }
+
+#center-maincontent-add-story .x-superboxselect.x-form-text, #center-maincontent-edit-story .x-superboxselect.x-form-text {
+    -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;
+    border: 1px solid #CCCCCC;
+    padding: 0.5em;
+    width: 414px;
+    background-image: none;
+}
+
+
+#center-maincontent-add-story .x-superboxselect-input-field, #center-maincontent-edit-story .x-superboxselect-input-field {
+    height: 27px;
+    border: 1px solid #CAD8F3;
+}
+
+#center-maincontent-add-story form.formtastic fieldset ol li.text span, #center-maincontent-edit-story form.formtastic fieldset ol li.text span { position: inherit; }
+
+.app form.formtastic fieldset ol li .text {
+    display: block;
+    padding-top: 0.5em;
+}
+
+.app form.formtastic fieldset ol li input.text {
+    padding-top: 0;
+    margin-top: 0.5em;
+    display: inline;
+}
+
+.app .activitystream-panel, .app .comments-panel {
+    text-align: left;
+}
+
+.app .activitystream-panel .x-grid3-cell-inner, .app .comments-panel .x-grid3-cell-inner {
+    overflow: visible;
+    white-space: normal;
+}
+
+.app .activitystream-panel .x-panel-header, .app .comments-panel .x-panel-header {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.app .x-panel-noborder .x-panel-header-noborder,
+.app .x-panel-noborder .x-panel-tbar-noborder .x-toolbar {
+    border-bottom-color: #F0F0F0;
+}
+
+.app .account_gravatar { display: block; }
+.app .x-superboxselect-item .account_gravatar span { display: inline; }
+.app .account_gravatar span { padding-top: 0.5em; display: block; }
+.app .plan_type select { margin-top: 0.5em; }
+
+.app .card .small_gravatar { margin: 0 0 0 10px; }
+.app .small_gravatar { float: left; margin-right: 10px; }
+.card .users { float: right; }
+
+.app .x-superboxselect-input { visibility: hidden; } /* don't allow users to type in the users names */
+
+.x-form-text, textarea.x-form-field {
+    background-color: transparent;
+    background-image: none;
+}
+
+.app #center-editstory h2, table caption,
+.app #center-addstory h2, table caption {
+    margin-top: 0;
+}
+
+.app span.cke_skin_kama { padding: 0; }
+.ext-gecko .x-form-item { outline: none; }
+
+.ux-layout-center { position: relative; top: 40%; }
+
+.workflow-editor h1 { text-align: left; }
+
+
+/* Workflow Editor */
+.floatContainer { padding:5px; }
+.ext-ie .floatContainer { float:left; clear:both; } /* IE bug workaround ... */
+
+.viewTestEl2 { float:left; font: bold 11px arial; text-shadow: 2px 2px 2px #eee; }
+.viewTestEl2.node { width: 200px; cursor: move; }
+.viewTestEl2 .workflow-display { border: solid black 1px; background: #ccc; margin: 2px; padding:6px; }
+
+#add-button { width: 200px; float: left; min-height: 6em; margin-top: 1em; }
+#add-button .workflow-display { width: 200px; float: left; }
+#add-button .workflow-display.add-button { -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px; border: solid black 1px; cursor: pointer; }
+
+.node .workflow-display, #add-button .workflow-display { width: 130px; float: left; }
+.viewTestEl2 .arrow, #add-button .arrow { float: right; width: 2em; font-size: 230.1%; }
+.viewTestEl2 .arrow { margin-top: 0.5em; }
+.node.first, .node.last { cursor: auto; }
+
+.viewTestEl2 .state { white-space: nowrap; overflow: hidden; line-height: 2em; height: 2em; }
+.close-button { width: 14px; height: 14px; overflow: hidden; float: right; padding-left: 0.5em; background-color: #ccc; }
+.workflow-display .handle { height: 20px; width: 100%; background: transparent url('images/drag-grippy.png') repeat-x left top; background-color: #744; }
+.workflow-display .handle .close-button { cursor: pointer; }
+
+/* Hover */
+.viewTestEl2.x-view-over .workflow-display .state { background: #eee; cursor: pointer; }
+
+.x-workflow-editor .viewTestEl2.x-dragging .workflow-display { filter:alpha(opacity=40); opacity:0.4; -moz-opacity:0.4; }
+
+.x-workflow-editor.x-dragging .viewTestEl2.x-view-over .workflow-display { filter:alpha(opacity=40); opacity:0.4; -moz-opacity:0.4; }
+
+.viewTestEl2.x-view-over .workflow-display {
+    -moz-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    -webkit-box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#000000')";
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=2, Direction=135, Color='#000000');
+}

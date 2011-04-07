@@ -1,0 +1,23 @@
+Requirements:
+* Ext 3.2 minimum.  We can upgrade to 3.3 if required (but not desired)
+
+Background:
+a) This is a workflow editor.  Each of the DataView nodes represent a workflow state.
+b) Users can rearrange the nodes by clicking on the brown header in the DataView nodes and dragging and dropping the nodes into position.
+c) The first and the last node are fixed and cannot be moved or dragged.
+d) the "Add" button creates a new node in the DataView inserted before the "Add" button.  The "Add" button is not working in this version (and that's ok)
+e) In the full version the label's are editable and are not working in this version (and that's ok)
+f) The "close" icons are not working in this version (and that's ok)
+This works in Firefox 3 and Chrome
+
+
+Problems:
+a) This code does not work on IE8.  The issues *seems* to occur on line 137 of index.html with the stateEditor.refresh() method call. - core task
+b) The Proxy (Ext.agilebench.DuplicateProxy - but the same behaviour happens in StatusProxy) has strange positioning - bonus task
+c) ideally the nodes would animate between positions - bonus task
+
+
+Expected Solution:
+a) This code should work without any errors in IE7, IE8 and IE9.
+b) The proxy would appear in the exact same position as the draggable DataView node
+c) As the nodes change position they would slide into position insead of being just appearing.
